@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL - Investigation Horror Game</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SIGNAL - A 2D first-person investigation horror game. Uncover the dark secrets of Saint Cross Hospital.">
+    <meta name="keywords" content="horror game, investigation game, 2D game, browser game">
+    <meta name="author" content="Ascend Now">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="SIGNAL - Investigation Horror Game">
+    <meta property="og:description" content="Uncover the dark secrets of Saint Cross Hospital in this 2D investigation horror game.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>SIGNAL</h1>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <p id="loading-text">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu" class="hidden">
+        <div class="menu-container">
+            <h1 class="game-title">SIGNAL</h1>
+            <p class="game-subtitle">Investigation Horror</p>
+            
+            <div class="menu-buttons">
+                <button class="menu-btn" id="new-game-btn">New Game</button>
+                <button class="menu-btn" id="continue-btn" disabled>Continue</button>
+                <button class="menu-btn" id="settings-btn">Settings</button>
+                <button class="menu-btn" id="credits-btn">Credits</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div id="game-container" class="hidden">
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-top">
+                <div class="hud-left">
+                    <div class="health-container">
+                        <span class="hud-label">Health</span>
+                        <div class="health-bar">
+                            <div class="health-fill" id="health-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="stamina-container">
+                        <span class="hud-label">Stamina</span>
+                        <div class="stamina-bar">
+                            <div class="stamina-fill" id="stamina-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hud-center">
+                    <div class="day-counter">
+                        <span class="hud-label">Day</span>
+                        <span class="day-number" id="day-number">1</span>
+                        <span class="day-total">/ 30</span>
+                    </div>
+                </div>
+                
+                <div class="hud-right">
+                    <div class="suspicion-container">
+                        <span class="hud-label">Suspicion</span>
+                        <div class="suspicion-meter">
+                            <div class="suspicion-fill" id="suspicion-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hud-bottom">
+                <div class="objective-container">
+                    <span class="hud-label">Objective:</span>
+                    <span class="objective-text" id="objective-text">Enter Saint Cross Hospital</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Interaction Prompt -->
+        <div id="interaction-prompt" class="hidden">
+            <span>Press [E] to interact</span>
+        </div>
+
+        <!-- Dialogue Box -->
+        <div id="dialogue-box" class="hidden">
+            <div class="dialogue-content">
+                <div class="dialogue-speaker" id="dialogue-speaker">NPC Name</div>
+                <div class="dialogue-text" id="dialogue-text"></div>
+                <div class="dialogue-choices" id="dialogue-choices"></div>
+            </div>
+        </div>
+
+        <!-- Inventory -->
+        <div id="inventory-panel" class="hidden">
+            <div class="inventory-header">
+                <h2>Inventory</h2>
+                <button class="close-btn" id="close-inventory">×</button>
+            </div>
+            <div class="inventory-tabs">
+                <button class="inventory-tab active" data-tab="evidence">Evidence</button>
+                <button class="inventory-tab" data-tab="items">Items</button>
+                <button class="inventory-tab" data-tab="notes">Notes</button>
+            </div>
+            <div class="inventory-content" id="inventory-content">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="hidden">
+            <div class="pause-container">
+                <h2>Paused</h2>
+                <div class="pause-buttons">
+                    <button class="pause-btn" id="resume-btn">Resume</button>
+                    <button class="pause-btn" id="inventory-btn">Inventory</button>
+                    <button class="pause-btn" id="pause-settings-btn">Settings</button>
+                    <button class="pause-btn" id="save-btn">Save Game</button>
+                    <button class="pause-btn" id="menu-btn">Main Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-btn" id="close-settings">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="music-volume">Music Volume</label>
+                    <input type="range" id="music-volume" min="0" max="100" value="70">
+                    <span id="music-value">70%</span>
+                </div>
+                <div class="setting-group">
+                    <label for="sfx-volume">SFX Volume</label>
+                    <input type="range" id="sfx-volume" min="0" max="100" value="80">
+                    <span id="sfx-value">80%</span>
+                </div>
+                <div class="setting-group">
+                    <label for="fullscreen-toggle">Fullscreen</label>
+                    <button class="toggle-btn" id="fullscreen-toggle">Off</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credits Modal -->
+    <div id="credits-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Credits</h2>
+                <button class="close-btn" id="close-credits">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="credits-content">
+                    <h3>SIGNAL</h3>
+                    <p>A 2D Investigation Horror Game</p>
+                    <br>
+                    <p><strong>Developed by:</strong> Ascend Now</p>
+                    <p><strong>Mentor:</strong> Shivam</p>
+                    <br>
+                    <p><strong>Special Thanks:</strong></p>
+                    <p>All students and supporters of the BMAD-METHOD™</p>
+                    <br>
+                    <p>© 2025 Ascend Now. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/evidence.js"></script>
+    <script src="js/stealth.js"></script>
+    <script src="js/npc.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
