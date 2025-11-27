@@ -1,0 +1,44 @@
+{
+  "levelName": "Reception",
+  "levelNumber": 1,
+  "startPosition": {"x": 100, "y": 700},
+  "npcs": [
+    {
+      "type": "security",
+      "name": "Marcus",
+      "position": {"x": 400, "y": 852},
+      "patrolPoints": [
+        {"x": 400, "y": 852},
+        {"x": 800, "y": 852}
+      ]
+    },
+    {
+      "type": "receptionist",
+      "name": "Sarah",
+      "position": {"x": 600, "y": 852},
+      "patrolPoints": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "hospital_map",
+      "name": "Hospital Map",
+      "description": "Layout of Saint Cross Hospital",
+      "position": {"x": 300, "y": 850}
+    }
+  ],
+  "objectives": [
+    {
+      "id": "enter_hospital",
+      "description": "Enter Saint Cross Hospital",
+      "completed": false
+    },
+    {
+      "id": "find_map",
+      "description": "Find hospital map",
+      "completed": false
+    }
+  ]
+}
+
+
