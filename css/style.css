@@ -1,4 +1,17 @@
-/* Global Styles */
+/* Messenger-Inspired Design System */
+:root {
+    --color-bg-dark: #1a1d29;
+    --color-bg-medium: #24283b;
+    --color-bg-light: #2d3250;
+    --color-accent: #7aa2f7;
+    --color-accent-bright: #bb9af7;
+    --color-text-primary: #c0caf5;
+    --color-text-secondary: #9aa5ce;
+    --color-danger: #f7768e;
+    --color-success: #9ece6a;
+    --color-warning: #e0af68;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,25 +19,27 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0a0a0a;
-    color: #ffffff;
+    font-family: 'Monaco', 'Courier New', monospace;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
     overflow: hidden;
     user-select: none;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Loading Screen */
+/* Loading Screen - Messenger Style */
 #loading-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-medium) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,45 +51,48 @@ body {
 }
 
 .loading-content h1 {
-    font-size: 4rem;
-    font-weight: bold;
-    letter-spacing: 0.5rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
     margin-bottom: 2rem;
-    color: #ffffff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    color: var(--color-accent-bright);
+    text-shadow: 0 0 20px rgba(187, 154, 247, 0.3);
+    font-family: 'Monaco', monospace;
 }
 
 .loading-bar {
-    width: 400px;
-    height: 20px;
-    background-color: #1a1a2e;
-    border: 2px solid #ffffff;
-    border-radius: 10px;
+    width: 300px;
+    height: 8px;
+    background-color: var(--color-bg-light);
+    border-radius: 4px;
     overflow: hidden;
     margin: 0 auto 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .loading-progress {
     height: 100%;
-    background: linear-gradient(90deg, #e94560 0%, #ff6b6b 100%);
+    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-bright) 100%);
     width: 0%;
     transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(122, 162, 247, 0.5);
 }
 
 #loading-text {
-    font-size: 1rem;
-    color: #cccccc;
-    letter-spacing: 0.1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.15rem;
+    font-family: 'Monaco', monospace;
 }
 
-/* Main Menu */
+/* Main Menu - Messenger Style */
 #main-menu {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-medium) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,78 +101,123 @@ body {
 
 .menu-container {
     text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .game-title {
-    font-size: 5rem;
-    font-weight: bold;
-    letter-spacing: 1rem;
-    margin-bottom: 1rem;
-    color: #ffffff;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent-bright);
+    text-shadow: 0 0 30px rgba(187, 154, 247, 0.4);
+    font-family: 'Monaco', monospace;
 }
 
 .game-subtitle {
-    font-size: 1.5rem;
-    color: #e94560;
-    letter-spacing: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.3rem;
     margin-bottom: 3rem;
+    font-family: 'Monaco', monospace;
+    text-transform: uppercase;
 }
 
 .menu-buttons {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
+    align-items: center;
 }
 
 .menu-btn {
-    padding: 1rem 3rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ffffff;
-    background: rgba(233, 69, 96, 0.8);
-    border: 2px solid #e94560;
-    border-radius: 5px;
+    min-width: 250px;
+    padding: 0.9rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    background: var(--color-bg-light);
+    border: 2px solid var(--color-accent);
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.15rem;
+    font-family: 'Monaco', monospace;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(122, 162, 247, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.menu-btn:hover:not(:disabled)::before {
+    left: 100%;
 }
 
 .menu-btn:hover:not(:disabled) {
-    background: #e94560;
-    box-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
+    background: var(--color-accent);
+    color: var(--color-bg-dark);
+    border-color: var(--color-accent-bright);
+    box-shadow: 0 0 20px rgba(122, 162, 247, 0.4);
     transform: translateY(-2px);
+}
+
+.menu-btn:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .menu-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+    border-color: var(--color-bg-medium);
 }
 
-/* Modal Styles */
+/* Modal Styles - Messenger Design */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(26, 29, 41, 0.85);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
+    animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 2px solid #e94560;
-    border-radius: 10px;
+    background: var(--color-bg-medium);
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
     padding: 2rem;
     width: 90%;
-    max-width: 600px;
+    max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .modal-header {
@@ -163,101 +226,156 @@ body {
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #e94560;
+    border-bottom: 2px solid var(--color-bg-light);
 }
 
 .modal-header h2 {
-    font-size: 2rem;
-    color: #ffffff;
+    font-size: 1.5rem;
+    color: var(--color-accent-bright);
+    font-family: 'Monaco', monospace;
+    letter-spacing: 0.1rem;
 }
 
 .close-btn {
     background: none;
     border: none;
-    color: #ffffff;
-    font-size: 2rem;
+    color: var(--color-text-secondary);
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
 }
 
 .close-btn:hover {
-    color: #e94560;
+    color: var(--color-danger);
+    background: rgba(247, 118, 142, 0.1);
 }
 
 .modal-body {
-    color: #cccccc;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
 }
 
-/* Settings */
+/* Settings - Messenger Style */
 .setting-group {
     margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-bg-light);
+    border-radius: 6px;
+    border: 1px solid rgba(122, 162, 247, 0.2);
 }
 
 .setting-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
 }
 
 .setting-group input[type="range"] {
-    width: 80%;
+    width: 70%;
     margin-right: 1rem;
+    accent-color: var(--color-accent);
 }
 
 .toggle-btn {
     padding: 0.5rem 1.5rem;
-    background: rgba(233, 69, 96, 0.8);
-    border: 2px solid #e94560;
-    color: #ffffff;
-    border-radius: 5px;
+    background: var(--color-bg-dark);
+    border: 2px solid var(--color-accent);
+    color: var(--color-text-primary);
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    font-family: 'Monaco', monospace;
+    font-size: 0.85rem;
 }
 
 .toggle-btn:hover {
-    background: #e94560;
+    background: var(--color-accent);
+    color: var(--color-bg-dark);
 }
 
-/* Credits */
+/* Credits - Messenger Style */
 .credits-content {
     text-align: center;
     line-height: 1.8;
 }
 
 .credits-content h3 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: #e94560;
+    color: var(--color-accent-bright);
+    font-family: 'Monaco', monospace;
 }
 
 .credits-content p {
-    color: #cccccc;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.credits-content strong {
+    color: var(--color-text-primary);
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--color-bg-dark);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-bright);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .game-title {
-        font-size: 3rem;
-        letter-spacing: 0.5rem;
-    }
-    
-    .game-subtitle {
-        font-size: 1rem;
+        font-size: 2.5rem;
         letter-spacing: 0.3rem;
     }
     
+    .game-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 0.2rem;
+    }
+    
     .menu-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
+        min-width: 200px;
+        padding: 0.75rem 2rem;
+        font-size: 0.9rem;
     }
     
     .loading-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .loading-bar {
-        width: 300px;
+        width: 250px;
     }
 }
 
-
+/* Pixel Perfect Rendering */
+canvas, img {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
