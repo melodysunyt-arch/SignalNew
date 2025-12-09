@@ -15,9 +15,30 @@ class NPC {
         this.idleTimer = 0;
         this.idleDuration = 3;
         
+        // Animation
+        this.animationFrame = 0;
+        this.animationTimer = 0;
+        
+        // Determine color based on type
+        this.color = this.getColorForType(type);
+        
         // Start patrol if points exist
         if (this.patrolPoints.length > 0) {
             this.state = NPC_STATES.PATROL;
+        }
+    }
+    
+    getColorForType(type) {
+        switch(type) {
+            case 'security':
+            case 'doctor':
+                return '#f7768e'; // Hostile
+            case 'receptionist':
+                return '#e0af68'; // Neutral
+            case 'ally':
+                return '#9ece6a'; // Friendly
+            default:
+                return '#e0af68';
         }
     }
     
@@ -45,6 +66,15 @@ class NPC {
         } else {
             this.alertLevel = Math.max(0, this.alertLevel - 5 * deltaTime);
         }
+        
+        // Update animation
+        if (this.state === NPC_STATES.PATROL || this.state === NPC_STATES.CHASE) {
+            this.animationTimer += deltaTime;
+            if (this.animationTimer >= 0.2) {
+                this.animationFrame = (this.animationFrame + 1) % 4;
+                this.animationTimer = 0;
+            }
+        }
     }
     
     idleBehavior(deltaTime) {
@@ -62,12 +92,10 @@ class NPC {
         const distance = Math.hypot(target.x - this.x, target.y - this.y);
         
         if (distance < 10) {
-            // Reached patrol point
             this.currentPatrolIndex = (this.currentPatrolIndex + 1) % this.patrolPoints.length;
             this.state = NPC_STATES.IDLE;
             this.idleTimer = this.idleDuration;
         } else {
-            // Move toward target
             const direction = {
                 x: (target.x - this.x) / distance,
                 y: (target.y - this.y) / distance
@@ -82,7 +110,6 @@ class NPC {
         const distance = Math.hypot(player.x - this.x, player.y - this.y);
         
         if (distance > 300) {
-            // Lost player
             this.state = NPC_STATES.PATROL;
             this.alertLevel = 0;
         } else {
@@ -101,7 +128,6 @@ class NPC {
         
         if (distance > this.detectionRange) return false;
         
-        // Calculate angle to player
         const angleToPlayer = Math.atan2(
             player.y - this.y,
             player.x - this.x
@@ -110,29 +136,35 @@ class NPC {
         const facingAngle = this.facing === 'right' ? 0 : 180;
         let angleDiff = Math.abs(angleToPlayer - facingAngle);
         
-        // Normalize angle difference
         if (angleDiff > 180) angleDiff = 360 - angleDiff;
         
         return angleDiff <= this.detectionAngle / 2;
     }
     
-    draw(ctx) {
-        // Temporary placeholder
-        ctx.fillStyle = this.state === NPC_STATES.CHASE ? '#ff0000' : '#ffff00';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+    draw(renderer) {
+        const detected = this.state === NPC_STATES.CHASE;
         
-        // Draw detection cone (debug)
+        // Draw detection cone
         if (this.state !== NPC_STATES.IDLE) {
-            ctx.strokeStyle = this.canSeePlayer ? '#ff0000' : 'rgba(255, 255, 0, 0.3)';
-            ctx.beginPath();
-            const facingAngle = this.facing === 'right' ? 0 : 180;
-            const startAngle = (facingAngle - this.detectionAngle/2) * Math.PI / 180;
-            const endAngle = (facingAngle + this.detectionAngle/2) * Math.PI / 180;
-            ctx.arc(this.x + this.width/2, this.y + this.height/2, 
-                   this.detectionRange, startAngle, endAngle);
-            ctx.lineTo(this.x + this.width/2, this.y + this.height/2);
-            ctx.stroke();
+            renderer.drawDetectionCone(
+                this.x + this.width/2,
+                this.y + this.height/2,
+                this.detectionRange,
+                this.detectionAngle,
+                this.facing,
+                detected
+            );
         }
+        
+        // Draw character
+        renderer.drawCharacter(
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            this.color,
+            this.facing
+        );
     }
 }
 
