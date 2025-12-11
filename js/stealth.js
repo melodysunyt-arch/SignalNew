@@ -42,5 +42,3 @@ class StealthSystem {
         // Implement game over logic
     }
 }
-
-
