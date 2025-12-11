@@ -83,5 +83,3 @@ const NPC_STATES = {
     ALERT: 'alert',
     CHASE: 'chase'
 };
-
-
