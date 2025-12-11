@@ -77,5 +77,3 @@ class EvidenceSystem {
         // TODO: Add visual notification system
     }
 }
-
-
