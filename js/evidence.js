@@ -27,6 +27,18 @@ class EvidenceSystem {
     hasItem(itemName) {
         return this.items.some(item => item.name === itemName);
     }
+
+    getEvidence() {
+        return this.evidence;
+    }
+
+    getItems() {
+        return this.items;
+    }
+
+    getNotes() {
+        return this.notes;
+    }
     
     showInventory() {
         const panel = document.getElementById('inventory-panel');
