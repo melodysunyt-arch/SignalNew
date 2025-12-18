@@ -6,8 +6,8 @@ const CONFIG = {
     
     // Player settings
     PLAYER: {
-        WALK_SPEED: 120,
-        RUN_SPEED: 240,
+        WALK_SPEED: 60,
+        RUN_SPEED: 120,
         JUMP_FORCE: -400,
         GRAVITY: 1200,
         MAX_STAMINA: 100,
@@ -19,18 +19,18 @@ const CONFIG = {
     // Stealth settings
     STEALTH: {
         MAX_SUSPICION: 100,
-        SUSPICION_DECAY_RATE: 5,
+        SUSPICION_DECAY_RATE: 10,
         DETECTION_THRESHOLD: 75,
-        SUSPICION_INCREASE_BASE: 10
+        SUSPICION_INCREASE_BASE: 5
     },
     
     // NPC settings
     NPC: {
-        DETECTION_RANGE: 200,
-        DETECTION_ANGLE: 90,
+        DETECTION_RANGE: 100,
+        DETECTION_ANGLE: 60,
         PATROL_SPEED: 80,
         CHASE_SPEED: 150,
-        ALERT_THRESHOLD: 30
+        ALERT_THRESHOLD: 50
     },
     
     // Game settings
@@ -40,12 +40,14 @@ const CONFIG = {
         CURRENT_LEVEL: 1
     },
     
-    // Controls
+    // Controls (3D First-Person)
     KEYS: {
-        MOVE_LEFT: ['ArrowLeft', 'a', 'A'],
-        MOVE_RIGHT: ['ArrowRight', 'd', 'D'],
-        JUMP: [' ', 'w', 'W', 'ArrowUp'],
-        CROUCH: ['Control', 's', 'S', 'ArrowDown'],
+        MOVE_FORWARD: ['w', 'W', 'ArrowUp'],
+        MOVE_BACKWARD: ['s', 'S', 'ArrowDown'],
+        MOVE_LEFT: ['a', 'A', 'ArrowLeft'],
+        MOVE_RIGHT: ['d', 'D', 'ArrowRight'],
+        JUMP: [' '],
+        CROUCH: ['Control', 'c', 'C'],
         SPRINT: ['Shift'],
         INTERACT: ['e', 'E', 'Enter'],
         INVENTORY: ['Tab', 'i', 'I'],
