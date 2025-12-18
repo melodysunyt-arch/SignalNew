@@ -1,30 +1,30 @@
 class StealthSystem {
     constructor() {
-        this.suspicionLevel = 0;
+        this.suspicion = 0; // Changed from suspicionLevel to match main.js
     }
-    
-    update(deltaTime, player, npcs) {
+
+    update(deltaTime, npcs = []) {
         // Natural suspicion decay
         if (!this.isPlayerDetected(npcs)) {
             this.decreaseSuspicion(CONFIG.STEALTH.SUSPICION_DECAY_RATE * deltaTime);
         }
-        
+
         // Check for game over
-        if (this.suspicionLevel >= CONFIG.STEALTH.DETECTION_THRESHOLD) {
+        if (this.suspicion >= CONFIG.STEALTH.DETECTION_THRESHOLD) {
             this.triggerDetection();
         }
     }
     
     increaseSuspicion(amount) {
-        this.suspicionLevel = Math.min(
-            this.suspicionLevel + amount, 
+        this.suspicion = Math.min(
+            this.suspicion + amount,
             CONFIG.STEALTH.MAX_SUSPICION
         );
         this.updateSuspicionUI();
     }
-    
+
     decreaseSuspicion(amount) {
-        this.suspicionLevel = Math.max(this.suspicionLevel - amount, 0);
+        this.suspicion = Math.max(this.suspicion - amount, 0);
         this.updateSuspicionUI();
     }
     
@@ -33,8 +33,11 @@ class StealthSystem {
     }
     
     updateSuspicionUI() {
-        const suspicionPercent = (this.suspicionLevel / CONFIG.STEALTH.MAX_SUSPICION) * 100;
-        document.getElementById('suspicion-fill').style.width = suspicionPercent + '%';
+        const suspicionPercent = (this.suspicion / CONFIG.STEALTH.MAX_SUSPICION) * 100;
+        const fill = document.getElementById('suspicion-fill');
+        if (fill) {
+            fill.style.width = suspicionPercent + '%';
+        }
     }
     
     triggerDetection() {
@@ -42,3 +45,5 @@ class StealthSystem {
         // Implement game over logic
     }
 }
+
+
